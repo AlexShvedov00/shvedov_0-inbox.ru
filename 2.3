@@ -1,0 +1,26 @@
+import seaborn as sb
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import math
+import scipy as sc
+from scipy.stats import cauchy
+#from pandas.plotting import parallel_coordinates
+tetha=0.5;
+i=0
+s=1000
+n=[2,5,10,20,50,100]
+num = 0
+plt.figure(figsize=(20, 20))
+for i in n:
+    num += 1
+    res = []
+    for ii in range(s):
+        x = []
+        for k in range(i):
+            x.append(np.random.standard_cauchy(1) + tetha)
+        res.append(np.mean(x))
+    plt.subplot(3, 3, num)
+    x_axis = np.arange(-400, max(res), 0.001)
+    plt.plot(x_axis, cauchy.pdf(x_axis,0,10))
+    sb.distplot(res)

@@ -1,0 +1,35 @@
+import seaborn as sb
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import math
+from pandas.plotting import parallel_coordinates
+theta=1
+def Umedian(x):
+    i = 0
+    vec = []
+    while (i < len(x)-1):
+        j = i + 1
+        while (j <= len(x) - 1):
+            vec.append((x[i] + x[j])/2)  
+            j += 1
+        i += 1
+    return np.median(vec)
+ #пункт 5
+n = [2, 5, 10, 20, 50, 100]
+s = 1000
+num = 0
+plt.figure(figsize=(13, 13))
+for i in n:
+    num += 1
+    res = []
+    res2 = []
+    for ii in range(s):
+        x = []
+        for k in range(i):
+            x.append(np.random.standard_cauchy(1) + theta)
+        res.append((np.median(x) - theta)*math.sqrt(i))
+        res2.append((Umedian(x) - theta)*math.sqrt(i))
+    plt.subplot(3, 3, num)
+    sb.distplot(res2)
+    sb.distplot(res)
